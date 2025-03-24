@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+@theme {
+  --font-monserrat: "Montserrat", serif;
+  --font-lora: "Lora", serif;
+  --font-noto-sans: "Noto Sans", sans-serif;
+
+  --color-white: #f9f9f9;
+  --color-black: #1a1a1a;
+  --color-blue: #49a8e7;
+  --color-grey: #d9d9d9;
+  --color-lightgrey: #f4f6f8;
+  --color-lightblack: #494949;
+
+  --animate-left-to-right: left-to-right 1s linear forwards;
+
+  @keyframes left-to-right {
+    0% {
+      width: 0rem;
+    }
+    100% {
+      width: 4rem;
+    }
+  }
+}
