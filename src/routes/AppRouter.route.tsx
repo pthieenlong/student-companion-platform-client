@@ -1,61 +1,57 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
-import { LoginLayout } from '../features/auth';
-import { Homepage } from '../pages/home';
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router"
+import { LoginLayout } from "../features/auth"
+import { Homepage } from "../pages/home"
 
-import { MainLayout } from '../pages/main';
+import { MainLayout } from "../pages/main"
 // import User from '../pages/User/User';
-import { SchedulePage } from '../pages/schedule';
-import { Introduction } from '../pages/introduction';
-import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
+import { SchedulePage } from "../pages/schedule"
+import { Introduction } from "../pages/introduction"
+import { useSelector } from "react-redux"
+import { RootState } from "../app/store"
 
 function AppRouter() {
   const isLogin = useSelector((state: RootState) => state.login.isLogin)
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: <MainLayout/>,
+      path: "/",
+      element: <MainLayout />,
       // element: isLogin ? <Layout/> : <Navigate to="/introduction" replace/>,
       children: [
         {
-          path: '/',
+          path: "/",
           index: true,
-          element: <Homepage/>
+          element: <Homepage />,
         },
         // {
         //   path: '/user/:username',
         //   element: <User/>
         // },
         {
-          path: '/schedule',
-          element: <SchedulePage/>
-        }
-      ]
+          path: "/schedule",
+          element: <SchedulePage />,
+        },
+      ],
     },
     {
-      path: '/introduction',
-    element: isLogin ? <Navigate to="/" replace/> : <Introduction/>
+      path: "/introduction",
+      element: isLogin ? <Navigate to="/" replace /> : <Introduction />,
     },
     {
-      path: '/auth',
+      path: "/auth",
       children: [
         {
-          path: 'signin',
-          element: !isLogin ? <LoginLayout/> : <Navigate to="/" replace/>
+          path: "signin",
+          element: !isLogin ? <LoginLayout /> : <Navigate to="/" replace />,
         },
         {
-          path: 'signup',
-          element: <div>Register</div>
-        }
-      ]
+          path: "signup",
+          element: <div>Register</div>,
+        },
+      ],
     },
-    
-    
-  ]);
-  
-  return (
-    <RouterProvider router={router}/>
-  )
+  ])
+
+  return <RouterProvider router={router} />
 }
 
 export default AppRouter
