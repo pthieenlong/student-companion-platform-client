@@ -9,37 +9,22 @@ import {
   MONTHS_OF_YEAR,
 } from "../types/Date.type"
 
-const DateTextComponent = ({
-  view,
-  state,
-  today,
-}: {
-  view: EScheduleView
-  state: ICalendarState
-  today: Date
-}) => {
+
+const DateTextComponent = ({view, state, today}:{view: EScheduleView, state: ICalendarState, today: Date}) => {
   switch (view) {
     case EScheduleView.DAY:
-      return (
-        <p className="font-noto-sans bg-lightgrey w-[7rem] rounded-md px-[.25rem] py-[.25rem] text-center">
+      return (<p className="font-noto-sans bg-lightgrey w-[7rem] rounded-md px-[.25rem] py-[.25rem] text-center">
           {`${state.currentDate.getDate() === today.getDate() && state.currentDate.getMonth() === today.getMonth() ? "Today" : `${state.currentDate.getDate()} ${new Intl.DateTimeFormat("default", { month: "short" }).format(state.currentDate)}`}`}
-        </p>
-      )
+        </p>)
     case EScheduleView.WEEK:
-      return (
-        <p className="font-noto-sans bg-lightgrey w-[7rem] rounded-md px-[.25rem] py-[.25rem] text-center">
-          {`${state.currentDate.getDate() === today.getDate() && state.currentDate.getMonth() === today.getMonth() ? "Today" : `${state.currentDate.getDate()} ${new Intl.DateTimeFormat("default", { month: "short" }).format(state.currentDate)}`}`}
-        </p>
-      )
-      break
+      return (<p className="font-noto-sans bg-lightgrey w-[7rem] rounded-md px-[.25rem] py-[.25rem] text-center">
+        {`${state.currentDate.getDate() === today.getDate() && state.currentDate.getMonth() === today.getMonth() ? "Today" : `${state.currentDate.getDate()} ${new Intl.DateTimeFormat("default", { month: "short" }).format(state.currentDate)}`}`}
+      </p>)
+      break;
     case EScheduleView.MONTH:
-      return (
-        <p className="font-noto-sans bg-lightgrey w-[7rem] rounded-md px-[.25rem] py-[.25rem] text-center">
-          {new Intl.DateTimeFormat("default", { month: "short" }).format(
-            state.currentDate,
-          )}
-        </p>
-      )
+      return (<p className="font-noto-sans bg-lightgrey w-[7rem] rounded-md px-[.25rem] py-[.25rem] text-center">
+       {new Intl.DateTimeFormat("default", { month: "short" }).format(state.currentDate)}
+      </p>)
   }
 }
 
@@ -55,8 +40,9 @@ const Header = ({
   view,
   setView,
 }: IScheduleComponent & {
-  setView: React.Dispatch<React.SetStateAction<EScheduleView>>
+  setView: React.Dispatch<React.SetStateAction<EScheduleView>>,
 }) => {
+
   return (
     <header className="flex w-full justify-between">
       <div className="font-noto-sans w-[20rem] text-3xl">
@@ -112,32 +98,32 @@ const Header = ({
             switch (view) {
               case EScheduleView.DAY:
                 dispatch({ type: ECalendarAction.DECREASE_DAY })
-                break
+                break;
               case EScheduleView.WEEK:
-                dispatch({ type: ECalendarAction.DECREASE_WEEK })
-                break
+                dispatch({ type: ECalendarAction.DECREASE_WEEK})
+                break;
               case EScheduleView.MONTH:
-                dispatch({ type: ECalendarAction.DECREASE_MONTH })
-                break
+                dispatch({ type: ECalendarAction.DECREASE_MONTH})
+                break;
             }
           }}
         >
           <ChevronLeftIcon width="1.5rem" />
         </button>
-        <DateTextComponent view={view} state={state} today={today} />
+        <DateTextComponent view={view} state={state} today={today}/>
         <button
           className="bg-lightgrey rounded-md px-[.25rem] py-[.25rem] text-black hover:cursor-pointer"
           onClick={() => {
             switch (view) {
               case EScheduleView.DAY:
                 dispatch({ type: ECalendarAction.INCREASE_DAY })
-                break
+                break;
               case EScheduleView.WEEK:
-                dispatch({ type: ECalendarAction.INCREASE_WEEK })
-                break
+                dispatch({ type: ECalendarAction.INCREASE_WEEK})
+                break;
               case EScheduleView.MONTH:
-                dispatch({ type: ECalendarAction.INCREASE_MONTH })
-                break
+                dispatch({ type: ECalendarAction.INCREASE_MONTH})
+                break;
             }
           }}
         >

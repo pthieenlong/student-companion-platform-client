@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-base-to-string */
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid"
 import { useReducer } from "react"
 import {
@@ -6,8 +8,11 @@ import {
   ICalendarAction,
   ICalendarState,
   DAYS_OF_WEEK,
+  getDaysInMonth,
+  getFirstDayOfMonth,
+  getDayOfWeek,
 } from "../types/Date.type"
-import { getDaysInMonth, getFirstDayOfMonth } from "../../../utils/Date.utils"
+
 const calendarReducer = (state: ICalendarState, action: ICalendarAction) => {
   const date = state.currentDate
   switch (action.type) {
