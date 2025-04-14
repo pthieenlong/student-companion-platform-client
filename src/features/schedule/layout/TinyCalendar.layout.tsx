@@ -6,11 +6,8 @@ import {
   ICalendarAction,
   ICalendarState,
   DAYS_OF_WEEK,
-  getDaysInMonth,
-  getFirstDayOfMonth,
-  getDayOfWeek,
 } from "../types/Date.type"
-
+import { getDaysInMonth, getFirstDayOfMonth } from "../../../utils/Date.utils"
 const calendarReducer = (state: ICalendarState, action: ICalendarAction) => {
   const date = state.currentDate
   switch (action.type) {
@@ -58,6 +55,7 @@ const TinyCalendar = ({ today }: { today: Date }) => {
       year: month === 11 ? year + 1 : year,
     })
   }
+
   const renderDays = (days: Day[]) => {
     const rows = []
     for (let i = 0; i < days.length; i += 7) {
@@ -66,12 +64,6 @@ const TinyCalendar = ({ today }: { today: Date }) => {
           {days.slice(i, i + 7).map((day, index) => (
             <td
               key={index}
-              onClick={() =>
-                dispatch({
-                  type: "SELECT_DATE",
-                  date: new Date(day.year, day.month, day.day),
-                })
-              }
               className={`px-[.75rem] py-[0.25rem] text-center hover:cursor-pointer ${day.currentMonth ? "opacity-100" : "opacity-70"} ${day.day === today.getDate() && day.month === today.getMonth() ? "bg-blue rounded-lg text-white" : ""}`}
             >
               {day.day}
@@ -83,17 +75,6 @@ const TinyCalendar = ({ today }: { today: Date }) => {
     return rows
   }
 
-  for(let i = 0; i < days.length; i += 7) {
-    console.log(days.slice(i, i + 7).map((day) => {
-      return {
-        dayOfWeek: DAYS_OF_WEEK[getDayOfWeek(day.day, day.month, day.year)],
-        day: day.day,
-        month: day.month + 1,
-        year: day.year
-      }
-    }))     
-  }
-  
   return (
     <section className="w-[20rem] rounded-2xl px-[1.25rem] py-[0.75rem] shadow-lg">
       <header className="flex justify-between">

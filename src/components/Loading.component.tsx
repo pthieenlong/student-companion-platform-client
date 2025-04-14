@@ -1,4 +1,4 @@
-import loadingGif from '../assets/images/6oa.gif'
+import loadingGif from "../assets/images/6oa.gif"
 const Loading = (className: string) => {
   const mainClassName = `flex flex-col justify-center w-full h-screen items-center ${className}`
   return (
