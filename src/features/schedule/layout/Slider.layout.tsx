@@ -1,14 +1,10 @@
 import { CalendarDaysIcon } from "@heroicons/react/24/outline"
 import {
-  DAYS_OF_WEEK,
   ECalendarAction,
   EScheduleView,
-  getDayOfWeek,
-  getWeek,
-  ICalendarAction,
-  ICalendarState,
   IScheduleComponent,
 } from "../types/Date.type"
+import * as DateUtils from "../../../utils/Date.utils"
 import SliderDay from "../components/SliderDay.component"
 
 const Slider = ({
@@ -23,7 +19,7 @@ const Slider = ({
   view,
   currentDate,
 }: IScheduleComponent & { currentDate: Date }) => {
-  const thisWeek = getWeek(
+  const thisWeek = DateUtils.getWeek(
     currentDate.getDate(),
     currentDate.getMonth(),
     currentDate.getFullYear(),
@@ -45,13 +41,16 @@ const Slider = ({
           />
         ))
       case EScheduleView.DAY:
-          return (<SliderDay
-            dayOfWeek={new Intl.DateTimeFormat("default", { month: "long" }).format(
-              state.currentDate,
-            ) + "" }
+        return (
+          <SliderDay
+            dayOfWeek={
+              new Intl.DateTimeFormat("default", { month: "long" }).format(
+                state.currentDate,
+              ) + ""
+            }
             dayOfMonth={currentDate.getDate() + ""}
             view={view}
-            className={`hover:cursor-pointer bg-lightgrey [&_p]:text-ligthblack w-full`}
+            className={`bg-lightgrey [&_p]:text-ligthblack w-full hover:cursor-pointer`}
           />
         )
       case EScheduleView.MONTH:
@@ -63,7 +62,7 @@ const Slider = ({
             onClick={() => {
               dispatch({ type: ECalendarAction.SET_DAY, date: day.DateType })
             }}
-            className={`hover:cursor-pointer [&_p]:text-lightblack bg-lightgrey`}
+            className={`[&_p]:text-lightblack bg-lightgrey hover:cursor-pointer`}
           />
         ))
       default:
@@ -76,7 +75,9 @@ const Slider = ({
       <div className="flex h-full w-[5rem] items-center justify-center">
         <CalendarDaysIcon width="2rem" />
       </div>
-      <div className={`pr-5 w-[calc(100%-4rem)] justify-between [&_div]:flex [&_div]:w-[calc(100%/)] gap-2 [&_div]:flex-col [&_div]:items-center [&_div]:justify-center [&_div]:rounded-xl [&_div]:px-[1rem] ${view === EScheduleView.DAY ? 'w-full [&_div]:h-full ' : 'grid grid-cols-7'}`}>
+      <div
+        className={`w-[calc(100%-4rem)] justify-between gap-2 pr-5 [&_div]:flex [&_div]:w-[calc(100%/)] [&_div]:flex-col [&_div]:items-center [&_div]:justify-center [&_div]:rounded-xl [&_div]:px-[1rem] ${view === EScheduleView.DAY ? "w-full [&_div]:h-full" : "grid grid-cols-7"}`}
+      >
         {render(view)}
       </div>
     </div>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IScheduleComponent {
   today: Date
   month: number
@@ -16,6 +15,36 @@ export enum EScheduleView {
   DAY = "DAY",
   YEAR = "YEAR",
 }
+export interface Timeline {
+  id: number // Changed from string to number
+  time: string
+}
+export const Timelines: Timeline[] = [
+  { id: 0, time: "00.00" },
+  { id: 1, time: "01.00" },
+  { id: 2, time: "02.00" },
+  { id: 3, time: "03.00" },
+  { id: 4, time: "04.00" },
+  { id: 5, time: "05.00" },
+  { id: 6, time: "06.00" },
+  { id: 7, time: "07.00" },
+  { id: 8, time: "08.00" },
+  { id: 9, time: "09.00" },
+  { id: 10, time: "10.00" },
+  { id: 11, time: "11.00" },
+  { id: 12, time: "12.00" },
+  { id: 13, time: "13.00" },
+  { id: 14, time: "14.00" },
+  { id: 15, time: "15.00" },
+  { id: 16, time: "16.00" },
+  { id: 17, time: "17.00" },
+  { id: 18, time: "18.00" },
+  { id: 19, time: "19.00" },
+  { id: 20, time: "20.00" },
+  { id: 21, time: "21.00" },
+  { id: 22, time: "22.00" },
+  { id: 23, time: "23.00" },
+]
 export interface ICalendarState {
   currentDate: Date
   selectedDate?: Date
@@ -42,66 +71,51 @@ export interface Day {
   year: number
 }
 export const DAYS_OF_WEEK = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-export const MONTHS_OF_YEAR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export const MONTHS_OF_YEAR = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+]
 
-export const getDaysInMonth = (year: number, month: number) => {
-  return new Date(year, month + 1, 0).getDate()
-}
-export const getFirstDayOfMonth = (year: number, month: number) => {
-  return new Date(year, month, 1).getDay()
-}
-export const getLastDayOfMonth = (year: number, month: number) => {
-  return new Date(year, month + 1, 0)
-}
-export const getDayOfWeek = (day: number, month: number, year: number) => {
-  return (new Date(year, month, day).getDay() + 6) % 7
-}
-export const getWeek = (
-  day: number,
-  month: number,
-  year: number,
-): { day: string; date: number; DateType: Date }[] => {
-  const date = new Date(year, month, day) // Tháng trong Date bắt đầu từ 0 (tháng 1 là 0)
-  const currentDayIndex = (date.getDay() + 6) % 7
-  const currentDate = date.getDate()
-  const currentMonth = date.getMonth()
-  const currentYear = date.getFullYear()
 
-  const week: { day: string; date: number; DateType: Date }[] = []
-
-  for (let i = 0; i < 7; i++) {
-    const diff = i - currentDayIndex
-    const weekDate = new Date(currentYear, currentMonth, currentDate + diff)
-    week.push({
-      day: DAYS_OF_WEEK[i],
-      date: weekDate.getDate(),
-      DateType: weekDate,
-    })
-  }
-
-  return week
+export const DragEventTypes = {
+  SCHEDULE_DRAG: "SCHEDULE_DRAG",
+}
+export type TaskType = {
+  id: number
+  title: string
+  description: string
+  time: string
+  start?: Date
+  end?: Date
 }
 
-export const get42Days = (firstDayOfMonth: number, prevMonthDays: number, month: number, year: number, daysInMonth: number):Day[] => {
-  const days: Day[] = []
-  for (let i = firstDayOfMonth - 1; i > 0; i--) {
-    days.push({
-      day: prevMonthDays - i + 1,
-      currentMonth: false,
-      month: month - 1,
-      year: month === 0 ? year - 1 : year,
-    })
-  }
-  for (let i = 1; i <= daysInMonth; i++) {
-    days.push({ day: i, currentMonth: true, month, year })
-  }
-  for (let i = 1; days.length < 42; i++) {
-    days.push({
-      day: i,
-      currentMonth: false,
-      month: month + 1,
-      year: month === 11 ? year + 1 : year,
-    })
-  }
-  return days;
-}
+export const Tasks: TaskType[] = [
+  {
+    id: 1,
+    title: "Task 1",
+    description: "Description 1",
+    time: "00.00",
+  },
+  {
+    id: 2,
+    title: "Task 2",
+    description: "Description 2",
+    time: "01.00",
+  },
+  {
+    id: 3,
+    title: "Task 3",
+    description: "Description 3",
+    time: "02.00",
+  },
+]
