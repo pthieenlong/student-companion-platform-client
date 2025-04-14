@@ -3,16 +3,13 @@ import {
   ICalendarAction,
   ICalendarState,
   ECalendarAction,
-  getDaysInMonth,
-  getFirstDayOfMonth,
   EScheduleView,
   Day,
-  get42Days,
 } from "./types/Date.type"
+import * as DateUtils from "../../utils/Date.utils"
 import TinyCalendar from "./layout/TinyCalendar.layout"
-import Header from "./layout/Header.layout"
-import Slider from "./layout/Slider.layout"
 import ScheduleLayout from "./layout/Schedule.layout"
+import CategoryLayout from "./layout/Category.layout"
 
 const calendarReducer = (
   state: ICalendarState,
@@ -45,7 +42,7 @@ const calendarReducer = (
       return { ...state }
     }
     case ECalendarAction.SET_DAY: {
-      state.currentDate.setDate(action.date?.getDate() as number);
+      state.currentDate.setDate(action.date?.getDate() as number)
       return { ...state }
     }
     default:
@@ -59,35 +56,42 @@ const Schedule = () => {
     currentDate: new Date(),
   })
   const { currentDate } = state
-  const [view, setView] = useState(EScheduleView.WEEK);
-   
+  const [view, setView] = useState(EScheduleView.WEEK)
+
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth()
 
-  const daysInMonth = getDaysInMonth(year, month)
-  const firstDayOfMonth = getFirstDayOfMonth(year, month) || 7
-  const prevMonthDays = getDaysInMonth(year, month - 1)
+  const daysInMonth = DateUtils.getDaysInMonth(year, month)
+  const firstDayOfMonth = DateUtils.getFirstDayOfMonth(year, month) || 7
+  const prevMonthDays = DateUtils.getDaysInMonth(year, month - 1)
 
-  const days = get42Days(firstDayOfMonth, prevMonthDays, month, year, daysInMonth);
-  
+  const days = DateUtils.get42Days(
+    firstDayOfMonth,
+    prevMonthDays,
+    month,
+    year,
+    daysInMonth,
+  )
+
   return (
     <div className="relative flex">
       <div className="fixed w-[20rem] bg-[#fff]">
         <TinyCalendar today={today} />
+        <CategoryLayout/>
       </div>
       <ScheduleLayout
-         today={today}
-         month={month}
-         year={year}
-         days={days}
-         prevMonthDays={prevMonthDays}
-         firstDayOfMonth={firstDayOfMonth}
-         daysInMonth={daysInMonth}
-         state={state}
-         dispatch={dispatch}
-         view={view}
-         setView={setView}
-         currentDate={currentDate}
+        today={today}
+        month={month}
+        year={year}
+        days={days}
+        prevMonthDays={prevMonthDays}
+        firstDayOfMonth={firstDayOfMonth}
+        daysInMonth={daysInMonth}
+        state={state}
+        dispatch={dispatch}
+        view={view}
+        setView={setView}
+        currentDate={currentDate}
       />
     </div>
   )

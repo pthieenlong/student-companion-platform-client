@@ -24,52 +24,54 @@ const ScheduleLayout = ({
   currentDate: Date
   days: Day[]
 }) => {
-
-  let calendarView: React.JSX.Element = <></>;
+  let calendarView: React.JSX.Element = <></>
 
   switch (view) {
     case EScheduleView.MONTH:
-      calendarView = <MonthLayout days={days} today={today}/>
-      break;
+      calendarView = <MonthLayout days={days} today={today} />
+      break
     case EScheduleView.WEEK:
-      calendarView = <WeekLayout/>
-      break;
+      calendarView = <WeekLayout />
+      break
     default:
-      calendarView = <DayLayout/>
-      break;
+      calendarView = <DayLayout />
+      break
   }
 
   return (
     <>
       <div className="relative left-[20rem] w-[calc(100%-20rem)] px-[1.75rem] py-[1rem]">
         <div className=""></div>
-          <Header
-            today={today}
-            month={month}
-            year={year}
-            prevMonthDays={prevMonthDays}
-            firstDayOfMonth={firstDayOfMonth}
-            daysInMonth={daysInMonth}
-            state={state}
-            dispatch={dispatch}
-            view={view}
-            setView={setView}
-          />
-          <Slider
-            currentDate={currentDate}
-            today={today}
-            month={month}
-            year={year}
-            prevMonthDays={prevMonthDays}
-            firstDayOfMonth={firstDayOfMonth}
-            daysInMonth={daysInMonth}
-            state={state}
-            dispatch={dispatch}
-            view={view}
-          />
-          <div className={`flex max-h-screen h-[42rem] mt-[1rem] w-full overflow-y-auto shadow-lg rounded-lg`} style={{ scrollbarWidth: "none" }}>
-              {calendarView}
-          </div>
+        <Header
+          today={today}
+          month={month}
+          year={year}
+          prevMonthDays={prevMonthDays}
+          firstDayOfMonth={firstDayOfMonth}
+          daysInMonth={daysInMonth}
+          state={state}
+          dispatch={dispatch}
+          view={view}
+          setView={setView}
+        />
+        <Slider
+          currentDate={currentDate}
+          today={today}
+          month={month}
+          year={year}
+          prevMonthDays={prevMonthDays}
+          firstDayOfMonth={firstDayOfMonth}
+          daysInMonth={daysInMonth}
+          state={state}
+          dispatch={dispatch}
+          view={view}
+        />
+        <div
+          className={`mt-[1rem] flex h-[42rem] max-h-screen w-full overflow-y-auto rounded-lg shadow-lg`}
+          style={{ scrollbarWidth: "none" }}
+        >
+          {calendarView}
+        </div>
       </div>
     </>
   )
